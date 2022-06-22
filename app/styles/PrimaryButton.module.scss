@@ -1,0 +1,28 @@
+@import './variables';
+
+.button {
+    border-radius: 4px;
+    cursor: pointer;
+    justify-content: center;
+        
+    &.primary {
+        color: $primary-text-color;
+        background: linear-gradient(
+            $accent-color 20%,
+            $accent-dark-color
+        );
+    }
+
+    &.secondary {
+        border: 1px solid $primary-text-color;
+        color: $primary-text-color
+    }
+
+    &.large {
+        padding: 1em;       
+    }
+
+    &.medium {
+        padding: .5em;
+    }
+}
