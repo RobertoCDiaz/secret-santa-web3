@@ -1,4 +1,4 @@
-import styles from '../styles/PrimaryButton.module.scss';
+import styles from '../styles/AppButton.module.scss';
 
 /**
  * Defines the types of the props for the PrimaryButton.

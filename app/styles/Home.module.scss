@@ -1,59 +1,110 @@
-@import './variables';
+@import './variables', './responsive';
 
 .app {
+    height: 100vh;
+    color: $primary-text-color;
+    display: flex;
+    flex-direction: column;
+    
+    @include isLarge {
+        height: 100%;
+        background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.8) 50%  ), url('/landing.jpg');
+    }
+
     * {
         display: flex;
         flex-direction: row;
-
-        // border: 1px solid red;
     }
 
     > .content {
-        background-color: $primary-bg-color;
-        color: $primary-text-color;
         padding: 2em;
         flex-direction: column;
         row-gap: 4em;
+        flex-grow: 1;
 
-        > .section {
+        .backgroundImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -10;
+            width: 100vw;
+            height: 90vh;
+            background: linear-gradient(transparent, rgba($primary-bg-color, 0.7) 10%), url('/landing.jpg') right;
+
+            @include isLarge {
+                display: none;
+            }
+        }
+        
+        @include isLarge {
+            padding: 4em 8em;
+            justify-content: center;
+            height: 55vh;
+        }
+
+        > .main, .extra {
             flex-direction: column;
             row-gap: 1em;
+        }
 
-            > .appLogo {
+        > .main {
+
+            @include isLarge {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 4em;
+
+                > * {
+                    align-self: center;
+                }
+                
+                > .main {
+                    grid-column: 0;
+                    order: 0;
+                    row-gap: 2em;
+
+                    > h1 {
+                        font-size: 3rem;
+                    }
+
+                    > :last-child {
+                        align-self: center;
+                    }
+                }
+                
+                > .extra {
+                    order: 1;
+                }
+            }
+
+            > .extra > .appLogo {
                 width: 50%;
                 max-width: 25em;
                 align-self: center;
             }
+
+            > * {
+                flex-direction: column;
+                row-gap: 1em;
+            }
         }
     }
-    
-    > .footer {
-        padding: 2em;
-        color: $primary-text-color;
-        background-color: $secondary-bg-color;
+
+    .howItWorks {
+        background-color: $primary-text-color;
+        color: $primary-bg-color;
+        border-radius: 2em 2em 0 0;
+        padding: 2em 8em;
         flex-direction: column;
-    
-        > .content {
-            padding: 1em;
-            flex-direction: column;
-            row-gap: .5em;
-    
-            > .link {
-                column-gap: .5em;
-                align-items: center;
+        row-gap: 2em;
 
-                > img, i {
-                    $size: 1.5rem;
+        > h2 {
+            align-self: center;
+            font-size: 2rem;
+        }
 
-                    width: $size;
-                    font-size: $size;
-                }
-
-                > a {
-                    font-size: 1rem;
-                    text-decoration: underline;
-                }
-            }
+        > p {
+            font-size: 1.25rem;
         }
     }
 }

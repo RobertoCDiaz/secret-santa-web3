@@ -1,0 +1,59 @@
+@import './variables', './responsive';
+
+.responsiveFooter {
+    padding: 2em;
+    color: $primary-text-color;
+    background-color: $secondary-bg-color;
+    flex-direction: column;
+
+    @include isLarge {
+        background-color: transparent;
+        padding: 4em 8em;
+
+        > h2 {
+            display: none;
+        }
+    }
+
+    > .content {
+        padding: 1em;
+        flex-direction: column;
+        row-gap: .5em;
+        justify-content: center;
+
+        @include isLarge {
+            padding: 0;
+            flex-direction: row;
+            column-gap: 2em;
+        }
+
+        > .link {
+            column-gap: .5em;
+            align-items: center;
+
+            @include isLarge {
+                flex-direction: column;
+                row-gap: .5em;
+            }
+
+            > img, i {
+                $size: 1.5rem;
+
+                width: $size;
+                font-size: $size;
+                
+                @include isLarge {
+                    $size: 2rem;
+
+                    width: $size;
+                    font-size: $size;
+                }
+            }
+
+            > a {
+                font-size: 1rem;
+                text-decoration: underline;
+            }
+        }
+    }
+}
