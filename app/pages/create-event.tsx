@@ -6,9 +6,21 @@ import { ResponsiveFooter } from "../components/ResponsiveFooter";
 import { AppButton } from "../components/AppButton";
 import DateTimePicker from "../components/DateTimePicker";
 import { MutableRefObject, useRef } from "react";
+import ParticipantsList from "../components/ParticipantsList";
 
 export default function CreateEvent() {
+    /**
+     * DateTimePicker element reference.
+     */
     const dateTimePicker: MutableRefObject<DateTimePicker> = useRef();
+    /**
+     * ParticipantsList element reference.
+     */
+    const participantsList: MutableRefObject<ParticipantsList> = useRef();
+
+    const createEvent = () => {
+        // ...
+    }
 
     return (
         <BreakpointProvider>
@@ -31,10 +43,11 @@ export default function CreateEvent() {
                         </div>
                         <div className={styles.section}>
                             <p>Add participants to the exchange</p>
+                            <ParticipantsList ref={participantsList}/>
                         </div>
                         <div className={styles.section}>
                             <p>When you're done, click the following button</p>
-                            <AppButton text="CREATE SECRET SANTA" />
+                            <AppButton text="CREATE SECRET SANTA" onClick={createEvent}/>
                         </div>
                     </div>
                 </Breakpoint>

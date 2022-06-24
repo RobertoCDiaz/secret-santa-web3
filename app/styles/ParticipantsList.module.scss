@@ -1,0 +1,48 @@
+@import './variables', './responsive';
+
+.root {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5em;
+
+    > .message {
+        text-align: center;
+        padding: 1em;
+        color: $secondary-text-color;
+    }
+
+    > .participant {
+        background-color: $primary-text-color;
+        color: $primary-bg-color;
+        padding: .5em;
+        flex-direction: row;
+        align-items: center;
+        column-gap: .5em;
+        border-radius: 4px;
+
+        > .info {
+            flex-grow: 1;
+
+            > .name {
+                font-weight: bold;   
+            }
+
+            > .email {
+                color: $secondary-text-color;
+            }
+        }
+
+        > .close {
+            cursor: pointer;
+        }
+    }
+
+    .addForm {
+        row-gap: .5em;
+
+        input {
+            padding: 1em .5em;
+            border-radius: 4px;
+        }
+    }
+}
