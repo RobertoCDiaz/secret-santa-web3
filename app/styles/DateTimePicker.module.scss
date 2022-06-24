@@ -1,0 +1,21 @@
+.dateTimePicker {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 1em;
+    cursor: pointer;
+    padding: .5em 1em;
+    border-radius: 4px;
+
+    > .icon {
+        font-size: 2rem;
+    }
+
+    > .label {
+        font-size: 1.75rem;
+    }
+
+    &:hover {
+        background-color: rgba(white, 0.25);
+    }
+}

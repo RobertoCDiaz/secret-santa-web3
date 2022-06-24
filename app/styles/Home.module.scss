@@ -8,7 +8,7 @@
     
     @include isLarge {
         height: 100%;
-        background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.8) 50%  ), url('/landing.jpg');
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8) 50%  ), url('/landing.jpg') top right;
     }
 
     * {
@@ -51,8 +51,12 @@
 
             @include isLarge {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 3fr 1fr;
                 column-gap: 4em;
+
+                @include isXL {
+                    grid-template-columns: 1fr 1fr;
+                }
 
                 > * {
                     align-self: center;

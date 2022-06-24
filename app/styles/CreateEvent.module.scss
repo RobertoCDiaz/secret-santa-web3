@@ -1,0 +1,45 @@
+@import './variables', './responsive';
+
+.app {
+    min-height: 100vh;
+    background-color: $primary-bg-color;
+    color: $primary-text-color;
+    display: flex;
+    flex-direction: column;
+
+    * {
+        display: flex;
+        flex-direction: column;
+    }
+
+    > .content {
+        padding: 2em 4em;
+        row-gap: 2em;
+        flex-grow: 1;
+        
+        * {
+            font-size: 1.25rem;
+        }
+        
+        >.header {
+            flex-direction: row;
+            align-items: center;
+            column-gap: 1em;
+
+            > i {
+                cursor: pointer;
+            }
+
+            > h1 {
+                font-size: 2.5rem;
+            }
+        }
+        > .content {
+            row-gap: 2em;
+
+            > .section {
+                row-gap: 1em;
+            }
+        }
+    }
+}

@@ -1,5 +1,11 @@
 @mixin isLarge {
-    @media screen and (min-width: 1024px) {
+    @media screen and (min-width: 992px) {
+        @content;
+    }
+}
+
+@mixin isXL {
+    @media screen and (min-width: 1200px) {
         @content;
     }
 }

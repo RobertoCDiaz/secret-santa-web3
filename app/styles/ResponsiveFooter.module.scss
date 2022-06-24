@@ -6,6 +6,11 @@
     background-color: $secondary-bg-color;
     flex-direction: column;
 
+    * {
+        display: flex;
+        flex-direction: row;
+    }
+
     @include isLarge {
         background-color: transparent;
         padding: 4em 8em;
@@ -30,6 +35,7 @@
         > .link {
             column-gap: .5em;
             align-items: center;
+            flex-direction: row;
 
             @include isLarge {
                 flex-direction: column;
