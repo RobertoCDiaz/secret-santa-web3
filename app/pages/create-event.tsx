@@ -7,6 +7,7 @@ import { AppButton } from "../components/AppButton";
 import DateTimePicker from "../components/DateTimePicker";
 import { MutableRefObject, useRef } from "react";
 import ParticipantsList from "../components/ParticipantsList";
+import Link from "next/link";
 
 export default function CreateEvent() {
     /**
@@ -23,36 +24,42 @@ export default function CreateEvent() {
     }
 
     return (
-        <BreakpointProvider>
+        <div>
             <Head>
                 <title>Create a new Secret Santa event</title>
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
             </Head>
             <div className={styles.app}>
-                <Breakpoint className={styles.content} medium down>
+                <div className={styles.content}>
                     <div className={styles.header}>
-                        <i className="material-icons">
-                            arrow_back_ios
-                        </i>
+                        <Link href="/">
+                            <i className="material-icons">
+                                arrow_back_ios
+                            </i>
+                        </Link>
                         <h1>Create event</h1>
                     </div>
                     <div className={styles.content}>
-                        <div className={styles.section}>
-                            <p>Select a time and date for the exchange</p>
-                            <DateTimePicker ref={dateTimePicker} />
+                        <div className={styles.col}>
+                            <div className={styles.section}>
+                                <p>Select a time and date for the exchange</p>
+                                <DateTimePicker ref={dateTimePicker} />
+                            </div>
+                            <div className={styles.section}>
+                                <p>Add participants to the exchange</p>
+                                <ParticipantsList ref={participantsList}/>
+                            </div>
                         </div>
-                        <div className={styles.section}>
-                            <p>Add participants to the exchange</p>
-                            <ParticipantsList ref={participantsList}/>
-                        </div>
-                        <div className={styles.section}>
-                            <p>When you're done, click the following button</p>
-                            <AppButton text="CREATE SECRET SANTA" onClick={createEvent}/>
+                        <div className={styles.col}>
+                            <div className={styles.section}>
+                                <p>When you're done, click the following button</p>
+                                <AppButton text="CREATE SECRET SANTA" onClick={createEvent}/>
+                            </div>
                         </div>
                     </div>
-                </Breakpoint>
+                </div>
                 <ResponsiveFooter />
             </div>
-        </BreakpointProvider>
+        </div>
     );
 }

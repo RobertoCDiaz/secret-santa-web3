@@ -16,6 +16,11 @@
         padding: 2em 4em;
         row-gap: 2em;
         flex-grow: 1;
+
+        @include isLarge {
+            padding: 4em 8em;
+            row-gap: 4em;
+        }
         
         * {
             font-size: 1.25rem;
@@ -36,10 +41,32 @@
         }
         > .content {
             row-gap: 2em;
-
-            > .section {
-                row-gap: 1em;
+            
+            @include isLarge {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 4em;
             }
+
+            .col {
+                row-gap: 2em;
+                flex-grow: 1;
+
+                @include isLarge {
+                    row-gap: 4em;
+                    justify-content: start;
+                    overflow-y: hidden;
+                }
+
+                > .section {
+                    row-gap: 1em;
+
+                    @include isLarge {
+                        row-gap: 2em;
+                    }
+                }
+            }
+
         }
     }
 }

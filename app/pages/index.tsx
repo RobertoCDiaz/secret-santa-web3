@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.scss'
 import { BreakpointProvider, Breakpoint } from 'react-socks';
 
@@ -7,6 +8,8 @@ import { AppButton } from '../components/AppButton';
 import { ResponsiveFooter } from '../components/ResponsiveFooter';
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <BreakpointProvider>
       <div className={styles.app}>
@@ -28,7 +31,7 @@ export default function Home() {
               <p>
                 You don’t have to worry about somebody messing or peeking into the end result, as this app is built using web3, so it’s totally decentralized and private.
               </p>
-              <AppButton text="CREATE AN EVENT"/>
+              <AppButton onClick={() => { router.push('/create-event') }} text="CREATE AN EVENT"/>
             </div>
           </div>
           <Breakpoint medium down>
