@@ -1,7 +1,9 @@
-import { Component, useState } from 'react';
+import { Component, createRef, RefObject } from 'react';
 import moment from 'moment';
+import DateTime from 'react-datetime';
 
 import styles from '../styles/DateTimePicker.module.scss';
+import { createRequire } from 'module';
 
 type TimePickerState = {
     date: moment.Moment,
@@ -12,8 +14,12 @@ type TimePickerState = {
  * A component which a user can use to define a date and time.
  */
 export default class TimePicker extends Component<any, TimePickerState> {
+    private pickerRef: RefObject<DateTime>;
+
     constructor(props) {
         super(props);
+
+        this.pickerRef = createRef();
 
         this.state = {
             date: moment(),
@@ -51,9 +57,12 @@ export default class TimePicker extends Component<any, TimePickerState> {
             })
         }
 
-        return <div onClick={handleOnClick} className={styles.dateTimePicker}>
-            <i className={`material-icons ${styles.icon}`}>event</i>
-            <p className={styles.label}>{ this.state.displayedDate }</p>
-        </div>;
+        return <DateTime renderInput={(props, openCalendar, closeCalendar) => {
+
+            return <div onClick={() => openCalendar()} className={styles.dateTimePicker}>
+                <i className={`material-icons ${styles.icon}`}>event</i>
+                <p className={styles.label}>{ this.state.displayedDate }</p>
+            </div>
+        }} />;
     }
 }
