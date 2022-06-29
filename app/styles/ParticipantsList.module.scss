@@ -15,7 +15,7 @@
         background-color: $primary-text-color;
         color: $primary-bg-color;
         padding: .5em;
-        flex-direction: row;
+        flex-direction: row !important;
         align-items: center;
         column-gap: .5em;
         border-radius: 4px;

@@ -43,7 +43,7 @@ export default function CreateEvent() {
                         <div className={styles.col}>
                             <div className={styles.section}>
                                 <p>Select a time and date for the exchange</p>
-                                <DateTimePicker ref={dateTimePicker} />
+                                <DateTimePicker className={`${styles.noFlex} ${styles.blackText}`} ref={dateTimePicker} />
                             </div>
                             <div className={styles.section}>
                                 <p>Add participants to the exchange</p>
@@ -58,7 +58,9 @@ export default function CreateEvent() {
                         </div>
                     </div>
                 </div>
-                <ResponsiveFooter />
+                <div className={styles.noFlex}>
+                    <ResponsiveFooter />
+                </div>
             </div>
         </div>
     );
