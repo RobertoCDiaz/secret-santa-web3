@@ -1,0 +1,43 @@
+@import './variables', './responsive', './mixins';
+
+.app {
+    @include flex($gapSize: 0);
+    min-height: 100vh;
+    background-color: $primary-bg-color;
+    color: $primary-text-color;
+    
+    .content {
+        flex-grow: 1;
+        @include flex($gapSize: 4em);
+        padding: 4em 2em;
+
+        > .header {
+            > h1 {
+                font-size: 2rem;
+            }
+
+            > .info {
+                font-size: 1.5rem
+            }
+        }
+    
+        > .initialScreen {
+            @include flex;
+            flex-grow: 1;
+            justify-content: center;
+            padding: 2em;
+        }
+
+        > .exchangeScreen {
+            @include flex($gapSize: 2em);
+
+            > .col {
+                @include flex($gapSize: 2em);
+
+                > .info {
+                    @include flex;
+                } 
+            }
+        }
+    }
+}

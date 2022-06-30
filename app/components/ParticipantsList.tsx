@@ -138,7 +138,7 @@ export default class ParticipantsList extends Component<any, ParticipantsListSta
             { !this.state.isAddingParticipant && this.state.participants.map((p, i) => 
                 Participant(p, () => deleteParticipant(i))
             ) }
-            { !this.state.isAddingParticipant && <AppButton text="ADD NEW PARTICIPANT" onClick={toggleAddForm} isSecondary={true} /> }
+            { !this.state.isAddingParticipant && <AppButton text="ADD NEW PARTICIPANT" onClick={toggleAddForm} isSecondary={true} isMedium={true} /> }
 
             {/* Add new participant form */}
             { this.state.isAddingParticipant && <div className={styles.addForm}>

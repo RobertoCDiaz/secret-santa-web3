@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Breakpoint, BreakpointProvider } from "react-socks";
 import styles from "../styles/CreateEvent.module.scss";
 
 import { ResponsiveFooter } from "../components/ResponsiveFooter";
@@ -10,6 +9,7 @@ import ParticipantsList from "../components/ParticipantsList";
 import Link from "next/link";
 
 export default function CreateEvent() {
+    // TODO: web3 validation
     /**
      * DateTimePicker element reference.
      */
@@ -20,7 +20,7 @@ export default function CreateEvent() {
     const participantsList: MutableRefObject<ParticipantsList> = useRef();
 
     const createEvent = () => {
-        // ...
+        // TODO: send information of an event to the backend for further processing
     }
 
     return (

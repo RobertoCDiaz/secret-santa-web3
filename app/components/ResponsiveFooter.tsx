@@ -13,11 +13,11 @@ export const ResponsiveFooter = () => {
           <a href="https://github.com/RobertoCDiaz/secret-santa-web3">Source code</a>
         </div>
         <div className={styles.link}>
-          <img src="icons/github.svg" alt="github icon" />
+          <img src="/icons/github.svg" alt="github icon" />
           <a href="https://github.com/RobertoCDiaz/">@RobertoCDiaz</a>
         </div>
         <div className={styles.link}>
-          <img src="icons/linkedin.svg" alt="linkedin icon" />
+          <img src="/icons/linkedin.svg" alt="linkedin icon" />
           <a href="https://linkedin.com/in/robertocdiaz">/in/robertocdiaz</a>
         </div>
       </div>

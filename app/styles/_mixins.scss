@@ -1,0 +1,6 @@
+@mixin flex($gapSize: 1em, $direction: column) {
+    display: flex;
+    flex-direction: $direction;
+    row-gap: $gapSize;
+    column-gap: $gapSize;
+}
