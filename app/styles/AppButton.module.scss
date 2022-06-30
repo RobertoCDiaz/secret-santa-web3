@@ -28,4 +28,9 @@
     &.medium {
         padding: .5em 2em;
     }
+
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 }

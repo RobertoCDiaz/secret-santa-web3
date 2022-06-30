@@ -3,10 +3,11 @@ import Head from "next/head";
 import styles from "../../styles/ExchangePage.module.scss";
 import { ResponsiveFooter } from "../../components/ResponsiveFooter";
 import { AppButton } from "../../components/AppButton";
-import { useState } from "react";
+import { createRef, MutableRefObject, useRef, useState } from "react";
 import PairShowcase from "../../components/PairShowcase";
 import PreviousPairs from "../../components/PreviousPairs";
 import Link from "next/link";
+import { runInThisContext } from "vm";
 
 export default function ExchangePage() {
     const router = useRouter();
@@ -18,7 +19,23 @@ export default function ExchangePage() {
     /**
      * Whether the event has been started by the users or not.
      */
-    const [hasStarted, setHasStarted] = useState(true);
+    const [hasStarted, setHasStarted] = useState<boolean>(false);
+
+    /**
+     * List of the exchange already sorted by giving order.
+     */
+    // TODO: Get this list from the blockchain.
+    const [shuffledList, setShuffledList] = useState<string[]>([
+        'Roberto',
+        'Carlos',
+        'Díaz',
+        'Sánchez',
+    ]);
+
+    /**
+     * Reference to the PreviousPairs component.
+     */
+    const previousPairsComponent: MutableRefObject<PreviousPairs> = useRef();
 
     /**
      * Renders a button that enables the users to start an exchange.
@@ -48,6 +65,10 @@ export default function ExchangePage() {
      * @returns ExchangeScreen component.
      */
     const exchangeScreen = () => {
+        const handleOnNextPairClicked = (pair) => {
+            previousPairsComponent.current.addItem(pair);
+        }
+
         return <div className={styles.exchangeScreen}>
             <div className={styles.col}>
                 <div className={styles.info}>
@@ -58,10 +79,10 @@ export default function ExchangePage() {
                         Just click on the Next Pair button so we can show you whose turn it is to give their present, and who will receive it!
                     </p>
                 </div>
-                <PairShowcase from="me" to="you" />
+                <PairShowcase list={shuffledList} onNextClicked={handleOnNextPairClicked} />
             </div>
             <div className={styles.col}>
-                <PreviousPairs />
+                <PreviousPairs ref={previousPairsComponent} />
             </div>
         </div>
     }

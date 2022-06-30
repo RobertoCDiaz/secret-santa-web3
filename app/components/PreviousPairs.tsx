@@ -3,9 +3,9 @@ import styles from '../styles/PreviousPairs.module.scss';
 
 type PreviousPairsState = {
     /**
-     * List of names, in order of giving.
+     * List of names, sorted by giving order.
      */
-    list: string[],
+    history: string[],
     /**
      * Whether the list is complete or nor.
      */
@@ -25,12 +25,7 @@ export default class PreviousPairs extends Component<any, PreviousPairsState> {
 
         this.state = {
             isComplete: false,
-            list: [
-                'Roberto',
-                'Carlos',
-                'Díaz',
-                'Sánchez',
-            ],
+            history: [],
         };
     }
 
@@ -47,25 +42,31 @@ export default class PreviousPairs extends Component<any, PreviousPairsState> {
      * 
      * @param item - Name of the person to add.
      */
-    addItem(item: string) {
-        if (this.state.isComplete) {
-            return;
-        }
-
-        if (item === this.state.list[0]) {
+    addItem(pair) {
+        if (this.state.history.length === 0) {
             this.setState({
-                isComplete: true,
+                history: this.state.history.concat(pair.from, pair.to),
             });
             return;
         }
 
+        if (this.state.isComplete) {
+            return;
+        }
+
+        if (pair.to === this.state.history[0]) {
+            this.setState({
+                isComplete: true,
+            });
+        }
+
         this.setState({
-            list: this.state.list.concat(item),
+            history: this.state.history.concat(pair.to),
         });
     }
 
     render() {
-        const Pair = (from: string, to: string) => {
+        const PairComponent = (from: string, to: string) => {
             return <div className={styles.pair}>
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
                 <p className={styles.name}>{ from }</p>
@@ -74,14 +75,19 @@ export default class PreviousPairs extends Component<any, PreviousPairsState> {
             </div>
         }
 
+        // if list is empty, must not render anything
+        if (this.state.history.length === 0) {
+            return null;
+        }
+
         return <div className={styles.previousPairs}>
             <h1>Previous pairs</h1>
-            { this.state.list.map((name, idx) => {
-                if (idx == this.state.list.length - 1)
+            { this.state.history.map((name, idx) => {
+                if (idx == this.state.history.length - 1)
                     return null;
 
-                return Pair(name, this.state.list[idx + 1]);
+                return PairComponent(name, this.state.history[idx + 1]);
             }) }
-        </div>
+        </div>;
     }
 }

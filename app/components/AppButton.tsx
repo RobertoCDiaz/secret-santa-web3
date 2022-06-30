@@ -8,6 +8,7 @@ type AppButtonProps = {
     onClick?: () => void,
     isSecondary? : boolean,
     isMedium?: boolean,
+    disabled?: boolean
 }
 
 /**
@@ -19,12 +20,14 @@ type AppButtonProps = {
  * @param isMedium - Whether should return a medium sized button.
  * @returns AppButton component
  */
-export const AppButton = ({text = "", onClick = () => {}, isSecondary = false, isMedium = false}: AppButtonProps) => {
+export const AppButton = ({text = "", onClick = () => {}, isSecondary = false, isMedium = false, disabled = false}: AppButtonProps) => {
     const buttonStyles: string[] = [styles.button];
 
     buttonStyles.push(!isSecondary ? styles.primary : styles.secondary);
 
     buttonStyles.push(!isMedium ? styles.large : styles.medium);
+
+    buttonStyles.push(disabled ? styles.disabled : '');
 
     return <div className={buttonStyles.join(" ")} onClick={onClick}>
         {text}
