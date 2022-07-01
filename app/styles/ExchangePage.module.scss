@@ -5,19 +5,36 @@
     min-height: 100vh;
     background-color: $primary-bg-color;
     color: $primary-text-color;
+
+    @include isLarge {
+        background: linear-gradient(rgba(black, 0.2), black), url('/landing.jpg') right;
+    }
+
     
     .content {
         flex-grow: 1;
         @include flex($gapSize: 4em);
         padding: 4em 2em;
 
+        @include isLarge {
+            padding: 4em;
+        }
+
         > .header {
             > h1 {
                 font-size: 2rem;
+
+                @include isLarge {
+                    font-size: 3rem;
+                }
             }
 
             > .info {
-                font-size: 1.5rem
+                font-size: 1.5rem;
+                
+                @include isLarge {
+                    font-size: 1.75rem;
+                }
             }
         }
     
@@ -26,10 +43,26 @@
             flex-grow: 1;
             justify-content: center;
             padding: 2em;
+
+            @include isLarge {
+                margin: auto;
+
+                > p {
+                    font-size: 1.25rem;
+                }
+            }
         }
 
         > .exchangeScreen {
             @include flex($gapSize: 2em);
+
+            @include isLarge {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                column-gap: 8em;
+                align-items: center;
+                flex-grow: 1;
+            }
 
             > .col {
                 @include flex($gapSize: 2em);

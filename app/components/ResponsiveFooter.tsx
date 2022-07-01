@@ -8,18 +8,18 @@ export const ResponsiveFooter = () => {
       </Head>
       <h2>Links</h2>
       <div className={styles.content}>
-        <div className={styles.link}>
+        <a className={styles.link} href="https://github.com/RobertoCDiaz/secret-santa-web3">
           <i className="material-icons">code</i>
-          <a href="https://github.com/RobertoCDiaz/secret-santa-web3">Source code</a>
-        </div>
-        <div className={styles.link}>
+          <p>Source code</p>
+        </a>
+        <a className={styles.link} href="https://github.com/RobertoCDiaz/">
           <img src="/icons/github.svg" alt="github icon" />
-          <a href="https://github.com/RobertoCDiaz/">@RobertoCDiaz</a>
-        </div>
-        <div className={styles.link}>
+          <p>@RobertoCDiaz</p>
+        </a>
+        <a className={styles.link} href="https://linkedin.com/in/robertocdiaz">
           <img src="/icons/linkedin.svg" alt="linkedin icon" />
-          <a href="https://linkedin.com/in/robertocdiaz">/in/robertocdiaz</a>
-        </div>
+          <p>/in/robertocdiaz</p>
+        </a>
       </div>
     </div>;
 }

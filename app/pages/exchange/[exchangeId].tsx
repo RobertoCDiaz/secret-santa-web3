@@ -3,11 +3,10 @@ import Head from "next/head";
 import styles from "../../styles/ExchangePage.module.scss";
 import { ResponsiveFooter } from "../../components/ResponsiveFooter";
 import { AppButton } from "../../components/AppButton";
-import { createRef, MutableRefObject, useRef, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import PairShowcase from "../../components/PairShowcase";
 import PreviousPairs from "../../components/PreviousPairs";
-import Link from "next/link";
-import { runInThisContext } from "vm";
+import useFetch from "../../hooks/useFetch";
 
 export default function ExchangePage() {
     const router = useRouter();
@@ -25,12 +24,7 @@ export default function ExchangePage() {
      * List of the exchange already sorted by giving order.
      */
     // TODO: Get this list from the blockchain.
-    const [shuffledList, setShuffledList] = useState<string[]>([
-        'Roberto',
-        'Carlos',
-        'Díaz',
-        'Sánchez',
-    ]);
+    const { data: namesList, loading } = useFetch('http://localhost:3000/api/test-data');
 
     /**
      * Reference to the PreviousPairs component.
@@ -69,6 +63,10 @@ export default function ExchangePage() {
             previousPairsComponent.current.addItem(pair);
         }
 
+        if (loading) {
+            return null;
+        }
+
         return <div className={styles.exchangeScreen}>
             <div className={styles.col}>
                 <div className={styles.info}>
@@ -79,7 +77,7 @@ export default function ExchangePage() {
                         Just click on the Next Pair button so we can show you whose turn it is to give their present, and who will receive it!
                     </p>
                 </div>
-                <PairShowcase list={shuffledList} onNextClicked={handleOnNextPairClicked} />
+                <PairShowcase list={namesList} onNextClicked={handleOnNextPairClicked} />
             </div>
             <div className={styles.col}>
                 <PreviousPairs ref={previousPairsComponent} />

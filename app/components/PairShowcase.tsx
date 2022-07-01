@@ -85,6 +85,9 @@ type Pair = {
         }
     }
 
+    if (list.length === 0)
+        return null;
+
     return <div className={styles.pairShowcase}>
         { !completed && <div className={styles.content}>
             <p className={styles.name}>{ currentPair.from }</p>
