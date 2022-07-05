@@ -1,7 +1,7 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-    const contract = await (await ethers.getContractFactory("")).deploy();
+    const contract = await (await ethers.getContractFactory("SecretSantaOrganizer")).deploy();
 
     console.log("Contract Address: ", contract.address);
 }

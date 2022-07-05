@@ -10,5 +10,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1"
+  },
+  "scripts": {
+    "start": "npx hardhat run scripts/deploy.js --network rinkeby"
   }
 }

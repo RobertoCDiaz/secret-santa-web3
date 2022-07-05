@@ -55,4 +55,16 @@ contract SecretSantaOrganizer {
 
         return e.participants;
     }
+
+    /**
+        @dev Get the date of an event. It can be useful to check in the frontend whether the event
+        has started or not, providing the exact date and time of start to maybe show a countdown.
+
+        @param eventId - ID of the event.
+     */
+    function getEventDate(string memory eventId) external view returns (uint256) {
+        Event storage e = _events[eventId];
+
+        return e.date;
+    }
 }
