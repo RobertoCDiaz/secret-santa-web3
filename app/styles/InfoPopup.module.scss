@@ -1,0 +1,56 @@
+@import './variables', './mixins', './responsive';
+
+.infoPopup {
+    display: grid;
+    grid-template-columns: 1fr;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin: 0.5em;
+    border: 1px solid orange;
+    border-radius: 4px;
+    transform: translateX(-50%);
+    cursor: pointer;
+    max-width: 75vw;
+    
+    @include isLarge {
+        margin: 1em;
+        width: 50vw;
+        opacity: 0.5;
+        column-gap: 2em;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    > .header {
+        display: grid;
+        grid-template-columns: 0fr 1fr 0fr;
+        align-items: center;
+        column-gap: 1em;
+        padding: 0.5em 1em;
+        background-color: orange;
+        color: white;
+
+        @include isLarge {
+            padding: 1em 2em;
+        }
+
+        > .title {
+            font-weight: bold;
+        }
+    }
+
+
+    >.content {
+        background-color: $primary-text-color;
+        color: $primary-bg-color;
+        padding: 1em;
+
+        @include isLarge {
+            padding: 1em 2em;
+        }
+    }
+
+}

@@ -7,12 +7,44 @@ import { BreakpointProvider, Breakpoint } from 'react-socks';
 import { AppButton } from '../components/AppButton';
 import { ResponsiveFooter } from '../components/ResponsiveFooter';
 
+import { newContractInstance, connectToWallet } from '../utils/web3';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import Web3Modal from 'web3modal';
+import InfoPopup from '../components/InfoPopup';
+
 export default function Home() {
   const router = useRouter();
+
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+
+  const web3Modal: MutableRefObject<Web3Modal> = useRef();
+
+  const asyncInit = async () => {
+    try {
+      web3Modal.current = new Web3Modal({
+        network: 'rinkeby',
+        disableInjectedProvider: false,
+        providerOptions: {},
+      });
+  
+      await connectToWallet(web3Modal);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => {
+    if (!isConnected) {
+      asyncInit();
+    }
+  }, [isConnected]);
 
   return (
     <BreakpointProvider>
       <div className={styles.app}>
+        { !isConnected && <InfoPopup 
+          title="Not connected"
+          message="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, totam voluptas ipsa eum porro, maxime pariatur exercitationem consequatur ab eveniet enim neque. Est, odio laboriosam voluptatibus iure minus quae recusandae!" /> }
         <Head>
           <title>Secret Santa Web3</title>
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
