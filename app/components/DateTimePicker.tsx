@@ -10,7 +10,13 @@ type TimePickerProps = {
 }
 
 type TimePickerState = {
+    /**
+     * Selected date.
+     */
     date: moment.Moment,
+    /**
+     * Date to display on component.
+     */
     displayedDate: string,
 }
 

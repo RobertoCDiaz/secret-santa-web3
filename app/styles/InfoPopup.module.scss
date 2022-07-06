@@ -5,16 +5,35 @@
     grid-template-columns: 1fr;
     position: fixed;
     top: 0;
-    left: 50%;
-    margin: 0.5em;
-    border: 1px solid orange;
+    left: 0;
+    right: 0;
+    margin: 0.5em 2em;
     border-radius: 4px;
-    transform: translateX(-50%);
-    cursor: pointer;
-    max-width: 75vw;
+
+    &.hidden {
+        display: none;
+    }
+    
+    &.normal {
+        border: 1px solid $info-color;
+    }
+    
+    &.warning {
+        border: 1px solid orange;
+    }
+    
+    &.success {
+        border: 1px solid green;
+    }
+
+    &.error {
+        border: 1px solid red;
+    }
     
     @include isLarge {
-        margin: 1em;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 1em 0;
         width: 50vw;
         opacity: 0.5;
         column-gap: 2em;
@@ -30,8 +49,25 @@
         align-items: center;
         column-gap: 1em;
         padding: 0.5em 1em;
-        background-color: orange;
         color: white;
+        cursor: pointer;
+            
+        &.normal {
+            background-color: $info-color;
+        }
+        
+        &.warning {
+            background-color: orange;
+        }
+        
+        &.success {
+            background-color: green;
+        }
+
+        &.error {
+            background-color: red;
+        }
+
 
         @include isLarge {
             padding: 1em 2em;
@@ -42,14 +78,24 @@
         }
     }
 
-
     >.content {
+        @include flex;
+        align-items: flex-start;
         background-color: $primary-text-color;
         color: $primary-bg-color;
         padding: 1em;
 
+        &.hidden {
+            display: none;
+        }
+
         @include isLarge {
             padding: 1em 2em;
+        }
+
+        > .option {
+            text-decoration: underline;
+            cursor: pointer;
         }
     }
 

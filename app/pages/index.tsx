@@ -10,15 +10,27 @@ import { ResponsiveFooter } from '../components/ResponsiveFooter';
 import { newContractInstance, connectToWallet } from '../utils/web3';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import Web3Modal from 'web3modal';
-import InfoPopup from '../components/InfoPopup';
+import InfoPopup, { InfoType } from '../components/InfoPopup';
 
 export default function Home() {
+  /**
+   * Router that allows page navigation on Next.js.
+   */
   const router = useRouter();
 
+  /**
+   * Whether the app is currently connected to a wallet or not.
+   */
   const [isConnected, setIsConnected] = useState<boolean>(false);
 
+  /**
+   * Object to be able to connect to a wallet.
+   */
   const web3Modal: MutableRefObject<Web3Modal> = useRef();
 
+  /**
+   * Async processes that will run on init.
+   */
   const asyncInit = async () => {
     try {
       web3Modal.current = new Web3Modal({
@@ -28,11 +40,16 @@ export default function Home() {
       });
   
       await connectToWallet(web3Modal);
+
+      setIsConnected(true);
     } catch (err) {
       console.error(err);
     }
   }
 
+  /**
+   * Initialize app.
+   */
   useEffect(() => {
     if (!isConnected) {
       asyncInit();
@@ -41,10 +58,22 @@ export default function Home() {
 
   return (
     <BreakpointProvider>
+      { !isConnected && 
+          <InfoPopup 
+            title="Not connected to an Ethereum wallet"
+            type={InfoType.Warning}
+            message="Right now is not necessary, but once you are creating an event, you must be connected to it in order to successfully write into the blockchain." 
+          />
+      }
+      {
+        isConnected &&
+        <InfoPopup
+          title="Connected to an Ethereum wallet"
+          type={InfoType.Success}
+          message="You are currently connected using an Ethereum wallet. You are now able to make full use of this application."
+          />
+      }
       <div className={styles.app}>
-        { !isConnected && <InfoPopup 
-          title="Not connected"
-          message="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam, totam voluptas ipsa eum porro, maxime pariatur exercitationem consequatur ab eveniet enim neque. Est, odio laboriosam voluptatibus iure minus quae recusandae!" /> }
         <Head>
           <title>Secret Santa Web3</title>
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -69,8 +98,9 @@ export default function Home() {
           <Breakpoint medium down>
             <div className={styles.extra}>
               <h2>How it works?</h2>
+              <p>First of all, as this app works on the Ethereum blockchain, you will need a way to connect to the blockchain (typically, a wallet like MetaMask).</p>
               <p>
-                You just have to provide a name and an email for each participant, along with the date and time for the exchange.
+                Once connected to your wallet, you just have to provide a name and an email for each participant, along with the date and time for the exchange.
               </p>
               <p>
                 When you finish entering all the partipants’ data and click on the “Create Secret Santa”, every member of the exchange will receive an email indicating which other person they were assigned to.
