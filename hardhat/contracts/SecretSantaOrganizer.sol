@@ -15,6 +15,11 @@ contract SecretSantaOrganizer {
             @dev Timestamp of the date and time of the event.
          */
         uint256 date;
+
+        /**
+            @dev This attribute can be used to check whether the event exists or nor.
+         */
+        bool exists;
     }
 
     /**
@@ -39,6 +44,7 @@ contract SecretSantaOrganizer {
 
         newEvent.participants = participants;
         newEvent.date = date;
+        newEvent.exists = true;
 
         ++_eventsCount;
     }
@@ -51,7 +57,7 @@ contract SecretSantaOrganizer {
     function getOrder(string memory eventId) external view returns (string[] memory) {
         Event storage e = _events[eventId];
 
-        require(e.date >= block.timestamp, "Event's due date still not reached");            
+        require(e.date / 1000 >= block.timestamp, "Event's due date still not reached");            
 
         return e.participants;
     }
@@ -66,5 +72,9 @@ contract SecretSantaOrganizer {
         Event storage e = _events[eventId];
 
         return e.date;
+    }
+
+    function eventExists(string memory eventId) external view returns (bool) {
+        return _events[eventId].exists;
     }
 }

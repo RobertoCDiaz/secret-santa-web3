@@ -11,7 +11,7 @@
     }
 
     
-    .content {
+    > .content {
         flex-grow: 1;
         @include flex($gapSize: 4em);
         padding: 4em 2em;
@@ -35,6 +35,27 @@
                 @include isLarge {
                     font-size: 1.75rem;
                 }
+            }
+        }
+
+        > .eventStillNotAvailable {
+            @include flex;
+            color: $secondary-text-color;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+
+            > i {
+                font-size: 5rem;
+            }
+
+            > p {
+                text-align: center
+            }
+
+            > .title {
+                font-size: 1.5rem;
+                font-weight: bold;
             }
         }
     
