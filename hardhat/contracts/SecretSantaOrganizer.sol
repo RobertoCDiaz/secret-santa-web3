@@ -57,7 +57,7 @@ contract SecretSantaOrganizer {
     function getOrder(string memory eventId) external view returns (string[] memory) {
         Event storage e = _events[eventId];
 
-        require(e.date / 1000 >= block.timestamp, "Event's due date still not reached");            
+        require(e.date <= block.timestamp, "Event's due date still not reached");
 
         return e.participants;
     }
@@ -74,6 +74,13 @@ contract SecretSantaOrganizer {
         return e.date;
     }
 
+    /**
+        @dev Checks the existence of an event.
+
+        @param eventId - ID of the event to check its existence of.
+
+        @return bool A value indicating whether the event exists or not.
+     */
     function eventExists(string memory eventId) external view returns (bool) {
         return _events[eventId].exists;
     }

@@ -6,13 +6,9 @@ import { AppButton } from "../../components/AppButton";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import PairShowcase from "../../components/PairShowcase";
 import PreviousPairs from "../../components/PreviousPairs";
-import useFetch from "../../hooks/useFetch";
 import Web3Modal from 'web3modal';
 import { connectToWallet, newContractInstance } from "../../utils/web3";
 import moment, { Moment } from "moment";
-
-// TODO: Check event existence.
-// TODO: Fix dates compatibility between dApp and smart contract.
 
 export default function ExchangePage() {
     const router = useRouter();
@@ -31,7 +27,15 @@ export default function ExchangePage() {
      */
     const [isConnected, setIsConnected] = useState<boolean>(false);
 
+    /**
+     * Event's date represented in a Moment object.
+     */
     const [eventTimestamp, setEventTimestamp] = useState<Moment>();
+
+    /**
+     * List of the exchange already sorted by giving order.
+     */
+    const [eventOrder, setEventOrder] = useState<string[]>();
 
     /**
      * Web3Modal object to connect to a wallet.
@@ -39,41 +43,27 @@ export default function ExchangePage() {
     const web3Modal: MutableRefObject<Web3Modal> = useRef();
 
     /**
-     * List of the exchange already sorted by giving order.
-     */
-    // TODO: Get this list from the blockchain.
-    const { data: namesList, loading } = useFetch('http://localhost:3000/api/test-data');
-
-    /**
      * Reference to the PreviousPairs component.
      */
     const previousPairsComponent: MutableRefObject<PreviousPairs> = useRef();
 
     /**
-     * Gets the date and time for an event, and updates the app's state to store it.
+     * Checks if the current event exists.
+     * 
+     * It checks the exchange ID against the stored events inside
+     * the smart contract. If it not exists, it means that there's no
+     * event with such exchange ID. Thus, the client will be redirected
+     * to the homepage.
      */
-    const getEventDate = async () => {
-        try {
-            const contract = await newContractInstance(web3Modal);
-    
-            const dateTimestamp: number = (await contract.getEventDate(exchangeId)).toNumber();
-            
-            setEventTimestamp(moment(dateTimestamp * 1000));
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    /**
-     * Retrieves the giving order of the exchange from the blockchain.
-     */
-    const getEventOrder = async () => {
+    const checkIfEventExists = async () => {
         try {
             const contract = await newContractInstance(web3Modal);
 
-            const order = await contract.getOrder(exchangeId);
+            const exists = await contract.eventExists(exchangeId);
 
-            console.log(order);
+            if (!exists) {
+                router.replace('/');
+            }
         } catch (error) {
             console.error(error);
         }
@@ -125,10 +115,6 @@ export default function ExchangePage() {
             previousPairsComponent.current.addItem(pair);
         }
 
-        if (loading) {
-            return null;
-        }
-
         return <div className={styles.exchangeScreen}>
             <div className={styles.col}>
                 <div className={styles.info}>
@@ -139,7 +125,7 @@ export default function ExchangePage() {
                         Just click on the Next Pair button so we can show you whose turn it is to give their present, and who will receive it!
                     </p>
                 </div>
-                <PairShowcase list={namesList} onNextClicked={handleOnNextPairClicked} />
+                <PairShowcase list={eventOrder} onNextClicked={handleOnNextPairClicked} />
             </div>
             <div className={styles.col}>
                 <PreviousPairs ref={previousPairsComponent} />
@@ -169,6 +155,38 @@ export default function ExchangePage() {
     }
 
     /**
+     * Creates a new contract instance using a provider to fetch
+     * data from the blockchain state. Retrieves all the relevant data
+     * from the smart contract of the event.
+     */
+    const retrieveEventData = async () => {
+        try {
+            const contract = await newContractInstance(web3Modal);
+    
+            // gets event date
+            const dateTimestamp: number = (await contract.getEventDate(exchangeId)).toNumber();
+            setEventTimestamp(moment(dateTimestamp * 1000));
+            
+            // event's date not reached yet
+            if (moment(dateTimestamp * 1000).isAfter(moment())) {
+                // retrieve data again in 30 seconds
+                setTimeout(() => {
+                    console.log('trying again...')
+                    retrieveEventData();
+                }, 30 * 1000);
+
+                return;
+            }
+
+            const order = await contract.getOrder(exchangeId);
+            setEventOrder(order);
+            
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    /**
      * Async initialization process.
      */
     const asyncInit = async () => {
@@ -184,8 +202,8 @@ export default function ExchangePage() {
             setIsConnected(true);
         }
 
-        await getEventDate();
-        await getEventOrder();
+        await checkIfEventExists();
+        await retrieveEventData();
     }
 
     /**
