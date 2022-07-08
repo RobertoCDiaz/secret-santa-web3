@@ -12,6 +12,6 @@
     "dotenv": "^16.0.1"
   },
   "scripts": {
-    "deploy": "npx hardhat run scripts/deploy.js --network rinkeby"
+    "deploy": "npx hardhat run scripts/deploy.js --network contract_network"
   }
 }
