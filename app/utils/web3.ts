@@ -9,6 +9,9 @@ import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../constants';
  */
 type ProviderOrSigner = ethers.providers.Web3Provider | ethers.providers.JsonRpcSigner;
 
+// Rinkeby's Testnet ID is 4.
+const NETWORK_ID: number = 4;
+
 /**
  * Returns a Provider if the operations to be executed on the blockchain are "read-only".
  * If you need to actually update the state on the blockchain, you should ask this function for a Signer instead.
@@ -21,10 +24,10 @@ export async function getProviderOrSigner(web3ModalReference: MutableRefObject<W
     const provider = await web3ModalReference.current.connect();
     const web3Provider = new ethers.providers.Web3Provider(provider);
 
-    // check if it's connected on the rinkeby's testnet (id === 4)
+    // check if it's connected to a blockchain network
     const { chainId } = await web3Provider.getNetwork();
-    if (chainId !== 4) {
-        alert('Please, connect using the Rinkeby\'s network');
+    if (chainId !== NETWORK_ID) {
+        alert('Please, connect using the appropiate Ethereum network');
         return;
     }
 
@@ -48,6 +51,24 @@ export async function newContractInstance(web3ModalReference: MutableRefObject<W
     return contract;
 }
 
+/**
+ * Connects to an Ethereum Wallet using a Web3Modal.
+ * 
+ * @param web3ModalReference - React reference to a Web3Modal object.
+ */
 export async function connectToWallet(web3ModalReference: MutableRefObject<Web3Modal>) {
     await web3ModalReference.current.connect();
+}
+
+/**
+ * Creates a new instance of a Web3Modal object.
+ * 
+ * @returns Web3Model instance.
+ */
+export function newWeb3ModalInstance(): Web3Modal {
+    return new Web3Modal({
+        network: 'rinkeby',
+        providerOptions: {},
+        disableInjectedProvider: false,
+    });;
 }

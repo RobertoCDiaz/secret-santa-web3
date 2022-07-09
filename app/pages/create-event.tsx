@@ -8,7 +8,7 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import ParticipantsList from "../components/ParticipantsList";
 import Link from "next/link";
 import Web3Modal from 'web3modal';
-import { connectToWallet, newContractInstance } from '../utils/web3';
+import { connectToWallet, newContractInstance, newWeb3ModalInstance } from '../utils/web3';
 import InfoPopup, { InfoType } from "../components/InfoPopup";
 import moment from "moment";
 
@@ -42,7 +42,7 @@ export default function CreateEvent() {
      */
     const handleCreateClick = () => {
         if (!isConnected) {
-            alert("You can't create an event if you're not connected to an Ethereum Wallet. Please connect to the Rinkeby's testnet and try again.")
+            alert("You can't create an event if you're not connected to an Ethereum Wallet. Please connect to the network and try again.")
             return;
         }
         
@@ -103,11 +103,7 @@ export default function CreateEvent() {
      */
     const asyncInit = async () => {
         try {
-        web3Modal.current = new Web3Modal({
-            network: 'rinkeby',
-            disableInjectedProvider: false,
-            providerOptions: {},
-        });
+        web3Modal.current = newWeb3ModalInstance();
     
         await connectToWallet(web3Modal);
 
@@ -136,7 +132,7 @@ export default function CreateEvent() {
                 <InfoPopup 
                     title="Not connected to an Ethereum wallet"
                     type={InfoType.Error}
-                    message="For this application to work, you must connect to the Rinkeby's Ethereum Testnet through a wallet like MetaMask." 
+                    message="For this application to work, you must connect to the an Ethereum network through a wallet like MetaMask." 
                     dismissable={false}
                 />
             }

@@ -6,11 +6,9 @@ Organize Secret Santa arrangements between you and your friends and family autom
 
 You don’t have to worry about somebody messing or peeking into the end result, as this app uses web3 technologies to ensure a complete decentralization of the app's information.
 
-# Install and configure a local implementation
+You can find more information on how to deploy your own instance of this application in the next sections.
 
-You can deploy your own instance of this application by following the next steps:
-
-## Installation 
+## Project installation 
 
 1. Clone this repo's source code and cd into it.
 
@@ -62,6 +60,24 @@ Once you have finished following this steps, you have successfully linked your l
 If you want to be able to deploy a new instance of the project's smart contract, you can follow the exact same steps from the previous section, and taking in consideration the following:
 
 * You have to make sure to specify the network that you want the contract to work on when creating your Alchemy application. Also, the private key that you provide in the `.env` file must be from an account of the desired network.
+
+* Currently, the application checks whether you're connected to a wallet on the Rinkeby's testnet or not. You will have to modify the [`app/utils/web3.ts`](app/utils/web3.ts) file to check for the network you will be working on:
+
+```js
+// change this 4 for the ID of your network
+const NETWORK_ID: number = 4;
+```
+
+* You should also change the name of the network inside the `newWeb3ModalInstance()` function, located inside the [`app/utils/web3.ts`](app/utils/web3.ts) file.
+```js
+export function newWeb3ModalInstance(): Web3Modal {
+    return new Web3Modal({
+        network: 'rinkeby', // change this value
+        providerOptions: {},
+        disableInjectedProvider: false,
+    });;
+}
+```
 
 ## Start local web application
 

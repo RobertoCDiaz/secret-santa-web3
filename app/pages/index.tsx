@@ -7,7 +7,7 @@ import { BreakpointProvider, Breakpoint } from 'react-socks';
 import { AppButton } from '../components/AppButton';
 import { ResponsiveFooter } from '../components/ResponsiveFooter';
 
-import { newContractInstance, connectToWallet } from '../utils/web3';
+import { newContractInstance, connectToWallet, newWeb3ModalInstance } from '../utils/web3';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import Web3Modal from 'web3modal';
 import InfoPopup, { InfoType } from '../components/InfoPopup';
@@ -33,11 +33,7 @@ export default function Home() {
    */
   const asyncInit = async () => {
     try {
-      web3Modal.current = new Web3Modal({
-        network: 'rinkeby',
-        disableInjectedProvider: false,
-        providerOptions: {},
-      });
+      web3Modal.current = newWeb3ModalInstance();
   
       await connectToWallet(web3Modal);
 
@@ -90,7 +86,7 @@ export default function Home() {
                 Organize Secret Santa arrangements between you and your friends and family automatically.
               </p>
               <p>
-                You don’t have to worry about somebody messing or peeking into the end result, as this app is built using web3, so it’s totally decentralized and private.
+                You don’t have to worry about somebody messing or peeking into the end result, as this app uses web3 technologies to ensure a complete decentralization of the app's information.
               </p>
               <AppButton onClick={() => { router.push('/create-event') }} text="CREATE AN EVENT"/>
             </div>

@@ -7,15 +7,15 @@ import { MutableRefObject, useEffect, useRef, useState } from "react";
 import PairShowcase from "../../components/PairShowcase";
 import PreviousPairs from "../../components/PreviousPairs";
 import Web3Modal from 'web3modal';
-import { connectToWallet, newContractInstance } from "../../utils/web3";
+import { connectToWallet, newContractInstance, newWeb3ModalInstance } from "../../utils/web3";
 import moment, { Moment } from "moment";
 
 export default function ExchangePage() {
     const router = useRouter();
     /**
-     * Params from the URL.
+     * Exchange ID param, from the URL.
      */
-    const { exchangeId } = router.query;
+    let exchangeId: string | string[];
 
     /**
      * Whether the event has been started by the users or not.
@@ -59,12 +59,13 @@ export default function ExchangePage() {
         try {
             const contract = await newContractInstance(web3Modal);
 
+            console.log(router.query)
             const exists = await contract.eventExists(exchangeId);
 
             if (!exists) {
                 router.replace('/');
             }
-        } catch (error) {
+        } catch(error) {
             console.error(error);
         }
     }
@@ -111,6 +112,10 @@ export default function ExchangePage() {
      * @returns ExchangeScreen component.
      */
     const exchangeScreen = () => {
+        if (!eventOrder) {
+            return null;
+        }
+
         const handleOnNextPairClicked = (pair) => {
             previousPairsComponent.current.addItem(pair);
         }
@@ -191,17 +196,14 @@ export default function ExchangePage() {
      */
     const asyncInit = async () => {
         if (!isConnected) {
-            web3Modal.current = new Web3Modal({
-                network: 'rinkeby',
-                disableInjectedProvider: false,
-                providerOptions: {},
-            });
+            web3Modal.current = newWeb3ModalInstance();
 
             await connectToWallet(web3Modal);
 
             setIsConnected(true);
+            return;
         }
-
+        
         await checkIfEventExists();
         await retrieveEventData();
     }
@@ -210,8 +212,12 @@ export default function ExchangePage() {
      * Init process.
      */
     useEffect(() => {
+        if (!router.isReady)
+            return;
+
+        exchangeId = router.query.exchangeId;
         asyncInit();
-    }, [isConnected]);
+    }, [router.isReady, isConnected]);
 
     return <div className={styles.app}>
         <Head>
