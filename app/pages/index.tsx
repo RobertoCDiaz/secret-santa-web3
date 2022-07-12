@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.scss'
 import { BreakpointProvider, Breakpoint } from 'react-socks';
@@ -7,7 +6,7 @@ import { BreakpointProvider, Breakpoint } from 'react-socks';
 import { AppButton } from '../components/AppButton';
 import { ResponsiveFooter } from '../components/ResponsiveFooter';
 
-import { newContractInstance, connectToWallet, newWeb3ModalInstance } from '../utils/web3';
+import { connectToWallet, newWeb3ModalInstance } from '../utils/web3';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import Web3Modal from 'web3modal';
 import InfoPopup, { InfoType } from '../components/InfoPopup';
@@ -107,6 +106,7 @@ export default function Home() {
             </div>
           </Breakpoint>
         </div>
+        {/* TODO: Fix footer on this specific page */}
         <ResponsiveFooter />
         <Breakpoint large up>
           <div className={styles.howItWorks}>
