@@ -59,7 +59,6 @@ export default function ExchangePage() {
         try {
             const contract = await newContractInstance(web3Modal);
 
-            console.log(router.query)
             const exists = await contract.eventExists(exchangeId);
 
             if (!exists) {
@@ -176,7 +175,6 @@ export default function ExchangePage() {
             if (moment(dateTimestamp * 1000).isAfter(moment())) {
                 // retrieve data again in 30 seconds
                 setTimeout(() => {
-                    console.log('trying again...')
                     retrieveEventData();
                 }, 30 * 1000);
 

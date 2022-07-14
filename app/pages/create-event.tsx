@@ -57,7 +57,7 @@ export default function CreateEvent() {
         }
 
         // send data to backend for further processing
-        fetch(`http://localhost:3000/api/create-event`, {
+        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/create-event`, {
             method: 'POST',
             body: JSON.stringify({
                 participants: participantsList.current.getList(),

@@ -79,6 +79,24 @@ export function newWeb3ModalInstance(): Web3Modal {
 }
 ```
 
+## Configure project's email credentials
+
+This application makes use of the `emailjs` npm dependency to send emails to the participants of an event, indicating who they will be giving a present to. You must provide the credentials for the sender email.
+
+1. Create a `.env.local` file by making a copy of `.env.local.template`.
+```bash
+# at /app directoy
+cp .env.local.template .env.local
+```
+
+2. Inside `.env.local`, add your email credentials
+```bash
+NEXT_PUBLIC_EMAIL_ADDRESS=#here goes your sender email
+NEXT_PUBLIC_EMAIL_PASSWORD=#here goes the password for the email account
+```
+
+NOTE: This must be configured before launching the local web application.
+
 ## Start local web application
 
 To start a development server to preview the application on your localhost, go to the `app` directory and run the following command:
