@@ -1,4 +1,5 @@
 import { Component, createRef, RefObject } from "react";
+import { Participant } from "../utils/types";
 import Head from "next/head";
 import styles from "../styles/ParticipantsList.module.scss";
 import { AppButton } from "./AppButton";
@@ -12,14 +13,6 @@ type ParticipantsListState = {
      * Whether user is currently adding a new participant or not.
      */
     isAddingParticipant: boolean,
-}
-
-/**
- * Participant struct.
- */
-type Participant = {
-    name: string,
-    email: string,
 }
 
 /**

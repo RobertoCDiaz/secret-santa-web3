@@ -75,11 +75,15 @@ export default function ExchangePage() {
      * @returns EventStillNotAvailable component.
      */
     const eventStillNotAvailable = () => {
+        const handleHomePageClick = () => {
+            router.replace('/');
+        }
+
         return <div className={styles.eventStillNotAvailable}>
             <i className="material-icons">calendar_month</i>
             <p className={styles.title}>This event is not available yet</p>
             <p className={styles.content}>Wait until the date and time indicated above.</p>
-            <AppButton text="Go to homepage" isSecondary isMedium />
+            <AppButton text="Go to homepage" isSecondary isMedium onClick={handleHomePageClick}/>
         </div>
     }
 

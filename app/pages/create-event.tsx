@@ -11,6 +11,7 @@ import Web3Modal from 'web3modal';
 import { connectToWallet, newContractInstance, newWeb3ModalInstance } from '../utils/web3';
 import InfoPopup, { InfoType } from "../components/InfoPopup";
 import moment from "moment";
+import { Participant } from "../utils/types";
 
 export default function CreateEvent() {
     /**
@@ -78,7 +79,7 @@ export default function CreateEvent() {
      * @param date - Timestamp of the date and time of the event.
      * @param eventId - ID of the event inside the smart contract.
      */
-    const createEvent = async (list: string[], date: number, eventId: string) => {
+    const createEvent = async (list: Participant[], date: number, eventId: string) => {
         try {
             const contract = await newContractInstance(web3Modal, true);
 
