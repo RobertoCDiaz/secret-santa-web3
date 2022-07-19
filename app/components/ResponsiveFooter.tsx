@@ -14,11 +14,11 @@ export const ResponsiveFooter = () => {
           <p>Source code</p>
         </a>
         <a className={styles.link} href="https://github.com/RobertoCDiaz/">
-          <Image src="/icons/github.svg" alt="github icon" />
+          <img src="/icons/github.svg" alt="github icon" />
           <p>@RobertoCDiaz</p>
         </a>
         <a className={styles.link} href="https://linkedin.com/in/robertocdiaz">
-          <Image src="/icons/linkedin.svg" alt="linkedin icon" />
+          <img src="/icons/linkedin.svg" alt="linkedin icon" />
           <p>/in/robertocdiaz</p>
         </a>
       </div>

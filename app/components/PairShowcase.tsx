@@ -92,7 +92,7 @@ type Pair = {
     return <div className={styles.pairShowcase}>
         { !completed && <div className={styles.content}>
             <p className={styles.name}>{ currentPair.from }</p>
-            <Image src="/icons/gifts_to.svg" alt="Gifts to" />
+            <img src="/icons/gifts_to.svg" alt="Gifts to" />
             <p className={styles.name}>{ currentPair.to }</p>
         </div> }
         { completed && <div className={styles.info}>
