@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import styles from '../styles/ResponsiveFooter.module.scss';
 
 export const ResponsiveFooter = () => {
@@ -13,11 +14,11 @@ export const ResponsiveFooter = () => {
           <p>Source code</p>
         </a>
         <a className={styles.link} href="https://github.com/RobertoCDiaz/">
-          <img src="/icons/github.svg" alt="github icon" />
+          <Image src="/icons/github.svg" alt="github icon" />
           <p>@RobertoCDiaz</p>
         </a>
         <a className={styles.link} href="https://linkedin.com/in/robertocdiaz">
-          <img src="/icons/linkedin.svg" alt="linkedin icon" />
+          <Image src="/icons/linkedin.svg" alt="linkedin icon" />
           <p>/in/robertocdiaz</p>
         </a>
       </div>

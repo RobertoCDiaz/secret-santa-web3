@@ -15,7 +15,8 @@ export default function ExchangePage() {
     /**
      * Exchange ID param, from the URL.
      */
-    let exchangeId: string | string[];
+    // let exchangeId: string | string[];
+    const exchangeId: MutableRefObject<string|string[]> = useRef();
 
     /**
      * Whether the event has been started by the users or not.
@@ -59,7 +60,7 @@ export default function ExchangePage() {
         try {
             const contract = await newContractInstance(web3Modal);
 
-            const exists = await contract.eventExists(exchangeId);
+            const exists = await contract.eventExists(exchangeId.current);
 
             if (!exists) {
                 router.replace('/');
@@ -101,7 +102,7 @@ export default function ExchangePage() {
         }
 
         return <div className={styles.initialScreen}>
-            <p>Once you're all set and ready to start the exchange, press the following button</p>
+            <p>Once you&apos;re all set and ready to start the exchange, press the following button</p>
             <AppButton text="START EXCHANGE" onClick={startExchange} />
         </div>
     }
@@ -172,7 +173,7 @@ export default function ExchangePage() {
             const contract = await newContractInstance(web3Modal);
     
             // gets event date
-            const dateTimestamp: number = (await contract.getEventDate(exchangeId)).toNumber();
+            const dateTimestamp: number = (await contract.getEventDate(exchangeId.current)).toNumber();
             setEventTimestamp(moment(dateTimestamp * 1000));
             
             // event's date not reached yet
@@ -185,7 +186,7 @@ export default function ExchangePage() {
                 return;
             }
 
-            const order = await contract.getOrder(exchangeId);
+            const order = await contract.getOrder(exchangeId.current);
             setEventOrder(order);
             
         } catch (error) {
@@ -217,7 +218,7 @@ export default function ExchangePage() {
         if (!router.isReady)
             return;
 
-        exchangeId = router.query.exchangeId;
+        exchangeId.current = router.query.exchangeId;
         asyncInit();
     }, [router.isReady, isConnected]);
 

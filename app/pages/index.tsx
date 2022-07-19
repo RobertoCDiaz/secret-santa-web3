@@ -85,7 +85,7 @@ export default function Home() {
                 Organize Secret Santa arrangements between you and your friends and family automatically.
               </p>
               <p>
-                You don’t have to worry about somebody messing or peeking into the end result, as this app uses web3 technologies to ensure a complete decentralization of the app's information.
+                You don&apos;t have to worry about somebody messing or peeking into the end result, as this app uses web3 technologies to ensure a complete decentralization of the app&apos;s information.
               </p>
               <AppButton onClick={() => { router.push('/create-event') }} text="CREATE AN EVENT"/>
             </div>

@@ -174,7 +174,7 @@ export default function CreateEvent() {
                         </div>
                         <div className={styles.col}>
                             <div className={styles.section}>
-                                <p>When you're done, click the following button</p>
+                                <p>When you&apos;re done, click the following button</p>
                                 <AppButton text="CREATE SECRET SANTA" onClick={handleCreateClick} disabled={!isConnected}/>
                             </div>
                         </div>
